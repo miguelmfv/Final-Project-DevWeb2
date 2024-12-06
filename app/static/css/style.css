@@ -1,0 +1,18 @@
+/* Exemplo de como você pode personalizar ainda mais os estilos */
+body {
+    background-color: #f8f9fa; /* Cor de fundo suave */
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-weight: 300;
+    color: #343a40;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}

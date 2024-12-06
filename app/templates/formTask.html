@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastro de Tarefa{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ form.title.data or 'Nova Tarefa' }}</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.title.label }}
+            {{ form.title(class="form-control") }}
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">{{ form.priority.label.text }}</label>
+            {{ form.priority(class="form-select") }}
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">{{ form.project.label.text }}</label>
+            {{ form.project(class="form-select") }}
+        </div>
+        <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+        <a href="{{ url_for('taskList', project_id=project_id) }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

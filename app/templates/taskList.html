@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Tarefas{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Lista de Tarefas do projeto: {{ project_title }}</h1>
+    <a href="{{ url_for('newTask', project_id=project_id) }}" class="btn btn-primary mb-3">Nova Tarefa</a>
+    <table class="table table-hover">
+        <thead class="table-dark">
+            <tr>
+                <td>Status</td>
+                <th>Título</th>
+                <th>Prioridade</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>
+                    <form action="{{ url_for('updateStatus', project_id=project_id, id=task.id) }}" method="POST">
+                        <label>
+                            <input type="checkbox" name="status" class="status" onchange="this.form.submit()" {% if task.status %}checked{% endif %}>
+                        </label>
+                    </form>
+                </td>
+                <td>{{ task.title }}</td>
+                <th>{{ task.priority }}</th>
+                <td>
+                    <a href="{{ url_for('editTask', project_id=project_id, id=task.id) }}" class="btn btn-warning btn-sm">Editar</a>
+                    <form action="{{ url_for('deleteTask', project_id=project_id, id=task.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja deletar?');">Deletar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="container">
+    <h1>Lista de Tarefas Concluídas</h1>
+    <a href="{{ url_for('generateReport', project_id=project_id) }}" class="btn btn-primary mb-3">Gerar relatório</a>
+
+    <table class="table table-hover">
+        <thead class="table-dark">
+            <tr>
+                <td>Status</td>
+                <th>Título</th>
+                <th>Prioridade</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for completed_task in completed_tasks %}
+            <tr>
+                <td>
+                    <form action="{{ url_for('updateStatus', project_id=project_id, id=completed_task.id) }}" method="POST">
+                        <label>
+                            <input type="checkbox" name="status" class="status" onchange="this.form.submit()" {% if completed_task.status %}checked{% endif %}>
+                        </label>
+                    </form>
+                </td>
+                <td>{{ completed_task.title }}</td>
+                <th>{{ completed_task.priority }}</th>
+                <td>
+                    <a href="{{ url_for('editTask', project_id=project_id, id=completed_task.id) }}" class="btn btn-warning btn-sm">Editar</a>
+                    <form action="{{ url_for('deleteTask', project_id=project_id, id=completed_task.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja deletar?');">Deletar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

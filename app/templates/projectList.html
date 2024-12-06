@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Projetos{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Lista de Projetos</h1>
+    <a href="{{ url_for('newProject') }}" class="btn btn-primary mb-3">Novo Projeto</a>
+
+    <table class="table table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Foto</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+            <tr>
+                <td>{{ project.id }}</td>
+                <td>{{ project.title }}</td>
+                <td>
+                    {% if project.cape %}
+                        <img src="{{ url_for('showProjectCape', id=project.id) }}" alt="Capa do {{ project.title }}" width="50">
+                    {% else %}
+                        <span>Sem capa</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ url_for('editProject', id=project.id) }}" class="btn btn-warning btn-sm">Editar</a>
+                    <form action="{{ url_for('deleteProject', id=project.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja deletar?');">Deletar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

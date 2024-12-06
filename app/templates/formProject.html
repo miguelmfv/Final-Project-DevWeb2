@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastro de Projeto{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ form.title.data or 'Novo Projeto' }}</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.title.label }}
+            {{ form.title(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.cape.label }}
+            {{ form.cape(class="form-control") }}
+        </div>
+        <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+        <a href="{{ url_for('projectList') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
