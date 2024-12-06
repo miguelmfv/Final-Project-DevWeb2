@@ -10,6 +10,23 @@
   Como rodar o projeto
 </h2>
 
-<p>
-  Rode: ```  $ pip install -r requirements.txt
-</p>
+- Instale as dependências no VENV:
+```
+$ pip install -r requirements.txt
+```
+
+- No arquivo .env adicione o Usuário, Senha e Database do PostgreSQL:
+
+```
+DATABASE_URL= postgresql://SeuUsuário:SuaSenha@localhost:5432/SeuBanco
+```
+
+- Inicie o Banco com::
+```
+$ flask db init
+$ flask db migrate -m "Criação das tabelas"
+$ flask db upgrade
+```
+
+- Rode o main.py e acesse o localhost!
+
